@@ -147,6 +147,19 @@ DirectionErrTemp[1][4] = DirectionErrTemp[1][3];
 
 }
 
+void island()  //环岛识别与控制
+{
+	DirectionCtrl();
+	float island1[10];
+	uint16 i,j;
+  for(i=0;i<10;i++)
+  {
+    island1[i]=Direction_Err[0];
+    j=10;
+    while(j--);
+  }
+}
+
 
 void sensor_init()
 {
@@ -160,7 +173,7 @@ void sensor_init()
 
 void finaler(void)
 {
-   uint8 i,j;
+   uint16 i,j;
     
   for(i=0;i<10;i++)
   {
@@ -184,7 +197,12 @@ void PID_elec(void)
     Pi = Kp_e * pe.current_err;
     Di = Kd_e * (pe.current_err - pe.last_err);
 //差值更新
-
+  Di=(Di>50?50:Di);
+  Pi=(Pi>50? 50:Pi);
+	
+	
+	
+	
     Pwm_value=SERVO_MIDDLE+Pi+Di ;
 
 }
